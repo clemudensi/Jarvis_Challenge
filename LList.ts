@@ -1,5 +1,3 @@
-// @ts-ignore
-
 class LinkedNode<T> {
     public data: T;
     public next: LinkedNode<T> | null;
@@ -7,8 +5,8 @@ class LinkedNode<T> {
 
     constructor(data: T, next?: null, prev?: null) {
         this.data = data;
-        this.next = null;
-        this.prev = null;
+        this.next = next;
+        this.prev = prev;
     }
 }
 
@@ -24,8 +22,7 @@ export class LinkedList<T> {
     }
 
     public pushFront(data: T): void{
-        let node = new LinkedNode(data);
-        // let current: LinkedNode<T>;
+        let node = new LinkedNode(data, null, null);
         if(!this.head){
             this.head = node;
             this.tail = this.head;
@@ -39,7 +36,7 @@ export class LinkedList<T> {
     }
 
     public pushBack(data: T): void{
-        let node = new LinkedNode(data);
+        let node = new LinkedNode(data, null, null);
         if(!this.head){
             this.head = node;
             this.tail = this.head
@@ -63,7 +60,7 @@ export class LinkedList<T> {
         return false;
     }
 
-    display(){
+    display(): void{
         let current = this.head;
         while(current.next !== null){
             console.log(current.next.data);
@@ -71,7 +68,7 @@ export class LinkedList<T> {
         }
     }
 
-    reverse(): void{
+    public reverse(): void{
         let current = this.tail;
         while (current.prev !== null) {
             this.reverseList.push(current.data);
@@ -86,7 +83,7 @@ export class LinkedList<T> {
                 current = current.next
             }
         } catch (err) {
-            current = null
+            current.data = null
         }
         return current
     }
@@ -104,22 +101,21 @@ export class LinkedList<T> {
         let newNode = new LinkedNode (data);
         let current = this.get(node);
         newNode.next = current.next;
-        newNode.prev = current.prev;
+        newNode.prev = current;
         current.next = newNode;
-        current.prev = newNode
+        newNode.next.prev = newNode;
     }
 
     insertBefore(node: LinkedNode<T>, data: T){
         let newNode = new LinkedNode(data);
         let current = this.getPrevious(node);
         newNode.next = current.next;
-        newNode.prev = current.prev;
+        newNode.prev = current;
         current.next = newNode;
-        current.prev = newNode
+        newNode.next.prev = newNode;
     }
 
-    // @ts-ignore
-    reversed(): NodeList<T>{
+    public reversed(): Array<T>{
         this.reverse();
         return this.reverseList
     }

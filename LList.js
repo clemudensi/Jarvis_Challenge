@@ -1,11 +1,10 @@
 "use strict";
-// @ts-ignore
 exports.__esModule = true;
 var LinkedNode = /** @class */ (function () {
     function LinkedNode(data, next, prev) {
         this.data = data;
-        this.next = null;
-        this.prev = null;
+        this.next = next;
+        this.prev = prev;
     }
     return LinkedNode;
 }());
@@ -19,8 +18,7 @@ var LinkedList = /** @class */ (function () {
         this.reverseList = [];
     }
     LinkedList.prototype.pushFront = function (data) {
-        var node = new LinkedNode(data);
-        // let current: LinkedNode<T>;
+        var node = new LinkedNode(data, null, null);
         if (!this.head) {
             this.head = node;
             this.tail = this.head;
@@ -34,7 +32,7 @@ var LinkedList = /** @class */ (function () {
         }
     };
     LinkedList.prototype.pushBack = function (data) {
-        var node = new LinkedNode(data);
+        var node = new LinkedNode(data, null, null);
         if (!this.head) {
             this.head = node;
             this.tail = this.head;
@@ -79,7 +77,7 @@ var LinkedList = /** @class */ (function () {
             }
         }
         catch (err) {
-            current = null;
+            current.data = null;
         }
         return current;
     };
@@ -95,19 +93,18 @@ var LinkedList = /** @class */ (function () {
         var newNode = new LinkedNode(data);
         var current = this.get(node);
         newNode.next = current.next;
-        newNode.prev = current.prev;
+        newNode.prev = current;
         current.next = newNode;
-        current.prev = newNode;
+        newNode.next.prev = newNode;
     };
     LinkedList.prototype.insertBefore = function (node, data) {
         var newNode = new LinkedNode(data);
         var current = this.getPrevious(node);
         newNode.next = current.next;
-        newNode.prev = current.prev;
+        newNode.prev = current;
         current.next = newNode;
-        current.prev = newNode;
+        newNode.next.prev = newNode;
     };
-    // @ts-ignore
     LinkedList.prototype.reversed = function () {
         this.reverse();
         return this.reverseList;

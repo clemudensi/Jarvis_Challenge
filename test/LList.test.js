@@ -30,7 +30,7 @@ describe('LinkedList', function () {
         list.get(2);
         list = list.head;
         chai_1.expect(list.data).equals(2);
-        chai_1.expect(list).to.include.key(['next', 'prev']);
+        chai_1.expect(list).to.include.any.keys('next', 'prev');
     });
     it('should insert a new node containing data after the given node ', function () {
         list.pushBack(2);
@@ -42,16 +42,17 @@ describe('LinkedList', function () {
         list.pushBack(2);
         list.insertBefore(2, 1);
         list.get(2);
-        chai_1.expect(list.head.prev.data).equals(1);
+        chai_1.expect(list.head.next.data).equals(1);
     });
     it('should return a reverse list', function () {
+        list.pushFront(1);
+        list.pushFront(2);
+        list.pushFront(3);
         list.pushFront('head');
-        list.pushBack(2);
-        list.insertAfter(2, 3);
-        list.insertAfter(3, 4);
-        list.insertBefore(3, 5);
-        list.reversed();
-        var result = list.reverseList;
+        list.pushBack(4);
+        list.pushBack(5);
+        list.pushBack(6);
+        var result = list.reversed();
         chai_1.expect(result[result.length - 1]).equals(3);
     });
 });
