@@ -1,0 +1,7 @@
+.env
+node_modules/
+data/
+.gitignore
+.git/
+secrets.env
+docker/
