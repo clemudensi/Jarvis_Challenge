@@ -1,0 +1,32 @@
+version: '3'
+services:
+  api:
+    container_name: nodejs_docker
+    env_file:
+      - ../../.env
+    build:
+      context: ../..
+      dockerfile: Dockerfile.production
+      args:
+        port: ${PORT}
+    restart: always
+    ports:
+      - "${PORT}:${MAP_PORT}"
+    environment:
+      WAIT_HOSTS: database:27017
+  database:
+    image: mongo:4.0
+    container_name: mongo
+    env_file:
+      - ../../.env
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD={MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - /etc/mongod.conf
+      - /docker-entrypoint-initdb.d/
+      - /data/db/
+    ports:
+      - "27017:27019"
+    command: "mongod --smallfiles --logpath=${MONGO_LOG_FILE}"

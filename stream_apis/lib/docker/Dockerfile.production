@@ -1,0 +1,10 @@
+FROM node:12
+RUN chmod +x /wait
+WORKDIR /home/nodejs/app
+ENV NODE_ENV prod
+COPY package*.json ./
+RUN yarn install --only=production
+ARG port=80
+EXPOSE $port
+COPY . ./
+CMD yarn start

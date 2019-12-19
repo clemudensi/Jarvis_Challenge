@@ -152,7 +152,6 @@ class PriceStream<T> implements PriceAggregator {
             .some((x) => status = x.providerName.toLowerCase() === providerName.toLowerCase());
         return removeFeed ? (()=>{
             this._store = this._store.filter(feed$ => feed$.providerName !== providerName);
-            // this.subject$.next(this._store);
             this._store.some((x) => status = x.providerName !== providerName);
             return status
         })() : status;

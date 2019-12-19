@@ -3,8 +3,6 @@
 yarn.lock
 /node_modules
 /DoublyLinkedList/dist
-/DoublyLinkedList/test
-/rxjx_streams/test
 /stream_apis/node_modules
-/stream_apis/secrets.env
-stream_apis/test
+stream_apis/.env
+/stream_apis/dist/

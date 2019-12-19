@@ -45,7 +45,6 @@ var PriceStream = /** @class */ (function () {
             .some(function (x) { return status = x.providerName.toLowerCase() === providerName.toLowerCase(); });
         return removeFeed ? (function () {
             _this._store = _this._store.filter(function (feed$) { return feed$.providerName !== providerName; });
-            // this.subject$.next(this._store);
             _this._store.some(function (x) { return status = x.providerName !== providerName; });
             return status;
         })() : status;

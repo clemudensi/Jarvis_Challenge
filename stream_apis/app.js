@@ -4,7 +4,8 @@ var express = require("express");
 var compression = require("compression");
 var bodyParser = require("body-parser");
 var cors = require("cors");
-var routes_1 = require("./routes");
+var routes_1 = require("./lib/routes");
+require("./db");
 var app = express();
 var port = process.env.PORT || 8000;
 var corsOption = {
@@ -15,8 +16,9 @@ var corsOption = {
 app.use(compression());
 app.use(cors(corsOption));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', routes_1["default"]);
 app.listen(port, function () {
     console.log("listening on port " + port);
 });
-// module.exports = router;
+exports["default"] = app;
