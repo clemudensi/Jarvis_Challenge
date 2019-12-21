@@ -53,6 +53,6 @@ describe('LinkedList', function () {
         list.pushBack(5);
         list.pushBack(6);
         var result = list.reversed();
-        chai_1.expect(result[result.length - 1]).equals(3);
+        chai_1.expect(result[result.length - 1]).equals(3); // first data in the list evaluates to 3
     });
 });

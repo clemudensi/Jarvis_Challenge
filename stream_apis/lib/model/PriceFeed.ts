@@ -1,9 +1,9 @@
 import {Document, model, Model, Schema} from 'mongoose';
 
 interface IPriceFeedDocument extends Document {
-    symbol: string,
-    providerName: string,
-    commission: number,
+    symbol: string;
+    providerName: string;
+    commission: number;
 }
 
 type PriceFeedModel = Model<IPriceFeedDocument>;
@@ -20,5 +20,5 @@ const PriceFeed: PriceFeedModel = model<IPriceFeedDocument>('PriceFeed', PriceFe
 export {
     PriceFeed,
     IPriceFeedDocument,
-    PriceFeedModel
+    PriceFeedModel,
 };

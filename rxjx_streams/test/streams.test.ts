@@ -1,6 +1,6 @@
 import 'mocha'
 import { expect } from 'chai';
-import { PriceStream, PriceAggregator, PriceFeed } from '../streams';
+import { PriceStream, PriceAggregator, PriceFeed, TimeFrame } from '../streams';
 
 declare var describe: Mocha.SuiteFunction;
 declare var beforeEach: Mocha.HookFunction;
@@ -31,7 +31,7 @@ describe('Price Feeds', () => {
     });
 
     it('should return `ConnectableObservable<PriceSummary>`',() =>{
-        const res = feed$.getFeedForTimeFrame(5000);
+        const res = feed$.getFeedForTimeFrame(TimeFrame.s5);
         expect(res.constructor.name).equals('Observable');
     });
 

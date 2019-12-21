@@ -1,8 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
-var Schema = mongoose_1["default"].Schema;
-var PriceSummarySchema = new Schema({
+var PriceSummarySchema = new mongoose_1.Schema({
     symbol: String,
     timestamp: Date,
     bestBuyPrice: {
@@ -13,8 +12,8 @@ var PriceSummarySchema = new Schema({
     bestSellPrice: {
         value: Number,
         spread: Number,
-        provider: String
-    }
+        provider: String,
+    },
 });
-var PriceSummary = mongoose_1["default"].model('PriceSummary', PriceSummarySchema);
-exports["default"] = PriceSummary;
+var PriceSummary = mongoose_1.model('PriceSummary', PriceSummarySchema);
+exports.PriceSummary = PriceSummary;

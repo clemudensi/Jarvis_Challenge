@@ -24,7 +24,7 @@ describe('Price Feeds', function () {
         feed$ = new streams_1.PriceStream(initPriceFeed);
     });
     it('should return `ConnectableObservable<PriceSummary>`', function () {
-        var res = feed$.getFeedForTimeFrame(5000);
+        var res = feed$.getFeedForTimeFrame(5 /* s5 */);
         chai_1.expect(res.constructor.name).equals('Observable');
     });
     it('should add a new price feed to the aggregator instance', function () {

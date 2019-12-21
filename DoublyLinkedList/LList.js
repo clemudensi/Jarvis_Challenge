@@ -17,6 +17,7 @@ var LinkedList = /** @class */ (function () {
         this.tail = null;
         this.reverseList = [];
     }
+    // inserts a new element at the front (start) of the list
     LinkedList.prototype.pushFront = function (data) {
         var node = new LinkedNode(data, null, null);
         if (!this.head) {
@@ -31,6 +32,7 @@ var LinkedList = /** @class */ (function () {
             this.head = newNode;
         }
     };
+    // inserts a new element at the back (end) of the list
     LinkedList.prototype.pushBack = function (data) {
         var node = new LinkedNode(data, null, null);
         if (!this.head) {
@@ -46,6 +48,7 @@ var LinkedList = /** @class */ (function () {
         this.tail = current.next;
     };
     ;
+    //checks if an element is part of the list
     LinkedList.prototype.exist = function (data) {
         var current = this.head;
         while (current) {
@@ -55,6 +58,7 @@ var LinkedList = /** @class */ (function () {
         }
         return false;
     };
+    // show data in LinkedList
     LinkedList.prototype.display = function () {
         var current = this.head;
         while (current.next !== null) {
@@ -62,6 +66,7 @@ var LinkedList = /** @class */ (function () {
             current = current.next;
         }
     };
+    // reverses the linked list in-place
     LinkedList.prototype.reverse = function () {
         var current = this.tail;
         while (current.prev !== null) {
@@ -69,6 +74,7 @@ var LinkedList = /** @class */ (function () {
             current = current.prev;
         }
     };
+    // returns a node containing data, or null of such doesn't exist
     LinkedList.prototype.get = function (data) {
         var current = this.head;
         try {
@@ -81,6 +87,7 @@ var LinkedList = /** @class */ (function () {
         }
         return current;
     };
+    // returns the previous data before a given data
     LinkedList.prototype.getPrevious = function (data) {
         var current = this.head;
         while (current.next !== null &&
@@ -89,6 +96,7 @@ var LinkedList = /** @class */ (function () {
         }
         return current;
     };
+    // inserts a new node containing data after the given node
     LinkedList.prototype.insertAfter = function (node, data) {
         var newNode = new LinkedNode(data);
         var current = this.get(node);
@@ -97,6 +105,7 @@ var LinkedList = /** @class */ (function () {
         current.next = newNode;
         newNode.next.prev = newNode;
     };
+    // inserts a new node containing data before the given node
     LinkedList.prototype.insertBefore = function (node, data) {
         var newNode = new LinkedNode(data);
         var current = this.getPrevious(node);
@@ -105,6 +114,7 @@ var LinkedList = /** @class */ (function () {
         current.next = newNode;
         newNode.next.prev = newNode;
     };
+    // returns a new copy of the current list, copied in reverse. The current list is unmodified
     LinkedList.prototype.reversed = function () {
         this.reverse();
         return this.reverseList;

@@ -1,6 +1,21 @@
-import mongoose from 'mongoose';
+import {Document, model, Model, Schema} from 'mongoose';
 
-const Schema = mongoose.Schema;
+interface IPriceSummaryDocument extends Document {
+    symbol: string;
+    timestamp: Date;
+    bestBuyPrice: {
+        value: number,
+        spread: number; // the difference between `value` and the sell price @ provider
+        provider: string;
+    };
+    bestSellPrice: {
+        value: number,
+        spread: number; // the difference between `value` and the buy price @ provider
+        provider: string;
+    };
+}
+
+type PriceSummaryModel = Model<IPriceSummaryDocument>;
 
 const PriceSummarySchema = new Schema({
     symbol: String,
@@ -13,10 +28,14 @@ const PriceSummarySchema = new Schema({
     bestSellPrice: {
         value: Number,
         spread: Number, // the difference between `value` and the buy price @ provider
-        provider: String
-    }
+        provider: String,
+    },
 });
 
-const PriceSummary = mongoose.model('PriceSummary', PriceSummarySchema);
+const PriceSummary: PriceSummaryModel = model<IPriceSummaryDocument>('PriceSummary', PriceSummarySchema);
 
-export default PriceSummary;
+export {
+    PriceSummary,
+    PriceSummaryModel,
+    IPriceSummaryDocument,
+};

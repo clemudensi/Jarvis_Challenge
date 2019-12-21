@@ -7,7 +7,6 @@ var request = require("supertest");
 // @ts-ignore
 var chaiHttp = require("chai-http");
 chai.use(chaiHttp);
-var price_feeds_1 = require("../lib/controllers/price_feeds");
 var app_1 = require("../app");
 var priceFeedItem = {
     symbol: "BTC/EUR",
@@ -19,12 +18,9 @@ var updatePriceFeed = {
     providerName: "Swan",
     commission: 1.55
 };
+// set-timeout to  10000ms during testing
 describe('PriceFeed API', function () {
     var documentId;
-    var priceFeed;
-    beforeEach(function () {
-        priceFeed = new price_feeds_1.PriceFeedAPI();
-    });
     it('should add a new price feed', function (done) {
         request(app_1["default"])
             .post('/api/pricefeed/new')
@@ -61,7 +57,7 @@ describe('PriceFeed API', function () {
             chai_1.expect(result.body.priceFeeds[0]).to.include.keys(['symbol', 'providerName', 'commission']); // true
             return done();
         });
-    }).timeout(10000);
+    });
     it('should update existing price feed', function (done) {
         request(app_1["default"])
             .put("/api/pricefeed/" + documentId)

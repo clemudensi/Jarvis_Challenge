@@ -63,6 +63,6 @@ describe('LinkedList', () => {
         list.pushBack(5);
         list.pushBack(6);
         const result = list.reversed();
-        expect(result[result.length - 1]).equals(3);
+        expect(result[result.length - 1]).equals(3); // first data in the list evaluates to 3
     });
 });

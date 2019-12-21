@@ -11,8 +11,8 @@
  * Note: Beware of https://github.com/ReactiveX/rxjs/issues/2972
  */
 
-import { Timestamp, ConnectableObservable, from, interval, merge, of, Observable, Subject } from 'rxjs';
-import { filter, map, publish, timestamp, toArray } from 'rxjs/operators';
+import { Timestamp, ConnectableObservable, interval, of, from, Observable, Subject } from 'rxjs';
+import { map, publish, timestamp } from 'rxjs/operators';
 
 type PriceOffer = {
     buyPrice: number;
@@ -113,6 +113,15 @@ interface PriceAggregator {
     removePriceFeed(providerName: string): boolean;
 }
 
+// arbitrary value for priceOffer
+const priceOffer = {
+    buyPrice: 120,
+    sellPrice: 125
+};
+
+// arbitrary value for bestBuy and bestSell
+const bestBuyValue = 122;
+const bestSellValue = 123;
 
 class PriceStream<T> implements PriceAggregator {
     private readonly _initialPriceFeeds: {
@@ -132,9 +141,27 @@ class PriceStream<T> implements PriceAggregator {
     };
 
     getFeedForTimeFrame(timeFrame: TimeFrame): ConnectableObservable<PriceSummary> {
-        const ticks = interval(timeFrame);
-        const myObservable$ = ticks.pipe(publish()) as ConnectableObservable<PriceSummary>;
-        myObservable$.connect();
+        const source$: any = from(this._store);
+        const myObservable$ = source$.pipe(map((x: PriceFeed) => {
+            return {
+                symbol: x.symbol,
+                timestamp: timestamp(),
+                bestBuyPrice: {
+                    value: bestBuyValue,
+                    spread: bestBuyValue - priceOffer.sellPrice,
+                    provider: x.providerName,
+                },
+                bestSellPrice: {
+                    value: bestSellValue,
+                    spread: bestSellValue - priceOffer.buyPrice,
+                    provider: x.providerName,
+                }
+            }
+        })) as ConnectableObservable<PriceSummary> ;
+
+        setInterval(() => {
+            myObservable$.subscribe((x) =>  JSON.stringify(x));
+        }, timeFrame);
         return myObservable$
     }
 
@@ -162,4 +189,5 @@ export {
     PriceStream,
     PriceFeed,
     PriceAggregator,
+    TimeFrame,
 }

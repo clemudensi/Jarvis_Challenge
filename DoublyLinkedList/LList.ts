@@ -21,6 +21,7 @@ export class LinkedList<T> {
         this.reverseList = [];
     }
 
+    // inserts a new element at the front (start) of the list
     public pushFront(data: T): void{
         let node = new LinkedNode(data, null, null);
         if(!this.head){
@@ -35,6 +36,7 @@ export class LinkedList<T> {
         }
     }
 
+    // inserts a new element at the back (end) of the list
     public pushBack(data: T): void{
         let node = new LinkedNode(data, null, null);
         if(!this.head){
@@ -50,6 +52,7 @@ export class LinkedList<T> {
         this.tail = current.next;
     };
 
+    //checks if an element is part of the list
     exist(data: T): boolean{
         let current = this.head;
 
@@ -60,6 +63,7 @@ export class LinkedList<T> {
         return false;
     }
 
+    // show data in LinkedList
     display(): void{
         let current = this.head;
         while(current.next !== null){
@@ -68,6 +72,7 @@ export class LinkedList<T> {
         }
     }
 
+    // reverses the linked list in-place
     public reverse(): void{
         let current = this.tail;
         while (current.prev !== null) {
@@ -76,6 +81,7 @@ export class LinkedList<T> {
         }
     }
 
+    // returns a node containing data, or null of such doesn't exist
     get(data): (LinkedNode<T> | null){
         let current = this.head;
         try {
@@ -88,6 +94,7 @@ export class LinkedList<T> {
         return current
     }
 
+    // returns the previous data before a given data
     getPrevious(data) {
         let current = this.head;
         while (current.next !== null &&
@@ -97,6 +104,7 @@ export class LinkedList<T> {
         return current;
     }
 
+    // inserts a new node containing data after the given node
     insertAfter(node: LinkedNode<T>, data: T){
         let newNode = new LinkedNode (data);
         let current = this.get(node);
@@ -106,6 +114,7 @@ export class LinkedList<T> {
         newNode.next.prev = newNode;
     }
 
+    // inserts a new node containing data before the given node
     insertBefore(node: LinkedNode<T>, data: T){
         let newNode = new LinkedNode(data);
         let current = this.getPrevious(node);
@@ -115,6 +124,7 @@ export class LinkedList<T> {
         newNode.next.prev = newNode;
     }
 
+    // returns a new copy of the current list, copied in reverse. The current list is unmodified
     public reversed(): Array<T>{
         this.reverse();
         return this.reverseList

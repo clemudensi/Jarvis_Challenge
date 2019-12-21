@@ -5,7 +5,7 @@ import * as request from 'supertest'
 // @ts-ignore
 import * as chaiHttp from 'chai-http';
 chai.use(chaiHttp);
-import {Model, IPriceFeed, PriceFeedModelI, PriceFeedAPI } from '../lib/controllers/price_feeds';
+import { IPriceFeed } from '../lib/controllers/price_feeds';
 import app from '../app'
 
 const priceFeedItem: IPriceFeed = {
@@ -20,14 +20,9 @@ const updatePriceFeed: IPriceFeed = {
     commission : 1.55
 };
 
+// set-timeout to  10000ms during testing
 describe('PriceFeed API', () => {
     let documentId: string;
-
-    let priceFeed: Model<PriceFeedModelI>;
-
-    beforeEach(() => {
-        priceFeed = new PriceFeedAPI()
-    });
 
     it('should add a new price feed',(done) => {
         request(app)
@@ -68,7 +63,7 @@ describe('PriceFeed API', () => {
                     ['symbol', 'providerName', 'commission']); // true
                 return done();
             });
-    }).timeout(10000);
+    });
 
     it('should update existing price feed',(done) => {
         request(app)

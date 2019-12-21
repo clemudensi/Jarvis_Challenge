@@ -14,6 +14,14 @@
 exports.__esModule = true;
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
+// arbitrary value for priceOffer
+var priceOffer = {
+    buyPrice: 120,
+    sellPrice: 125
+};
+// arbitrary value for bestBuy and bestSell
+var bestBuyValue = 122;
+var bestSellValue = 123;
 var PriceStream = /** @class */ (function () {
     function PriceStream(initialPriceFeeds) {
         var _this = this;
@@ -25,9 +33,26 @@ var PriceStream = /** @class */ (function () {
     }
     ;
     PriceStream.prototype.getFeedForTimeFrame = function (timeFrame) {
-        var ticks = rxjs_1.interval(timeFrame);
-        var myObservable$ = ticks.pipe(operators_1.publish());
-        myObservable$.connect();
+        var source$ = rxjs_1.from(this._store);
+        var myObservable$ = source$.pipe(operators_1.map(function (x) {
+            return {
+                symbol: x.symbol,
+                timestamp: operators_1.timestamp(),
+                bestBuyPrice: {
+                    value: bestBuyValue,
+                    spread: bestBuyValue - priceOffer.sellPrice,
+                    provider: x.providerName,
+                },
+                bestSellPrice: {
+                    value: bestSellValue,
+                    spread: bestSellValue - priceOffer.buyPrice,
+                    provider: x.providerName,
+                }
+            };
+        }));
+        setInterval(function () {
+            myObservable$.subscribe(function (x) { return JSON.stringify(x); });
+        }, timeFrame);
         return myObservable$;
     };
     PriceStream.prototype.addPriceFeed = function (priceFeed) {

@@ -2,8 +2,12 @@
   "name": "jarvis",
   "version": "1.0.0",
   "dependencies": {
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.1.0",
+    "rxjs": "^6.5.3",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2",
+    "vue": "^2.6.11",
     "xstream": "^11.11.0"
   },
   "scripts": {
