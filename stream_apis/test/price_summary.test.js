@@ -27,7 +27,6 @@ describe('Price Summary', function () {
             if (error) {
                 return done(error);
             }
-            console.log(result.body, 'rez');
             chai_1.expect(result.body).to.not.be.empty;
             chai_1.expect(result.body).to.be.an('object');
             chai_1.expect(result.body.priceSummary)

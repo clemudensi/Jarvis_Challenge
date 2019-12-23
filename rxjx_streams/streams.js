@@ -37,7 +37,7 @@ var PriceStream = /** @class */ (function () {
         var myObservable$ = source$.pipe(operators_1.map(function (x) {
             return {
                 symbol: x.symbol,
-                timestamp: operators_1.timestamp(),
+                timestamp: new Date,
                 bestBuyPrice: {
                     value: bestBuyValue,
                     spread: bestBuyValue - priceOffer.sellPrice,

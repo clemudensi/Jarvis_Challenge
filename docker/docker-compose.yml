@@ -1,11 +1,21 @@
 version: '3'
 services:
+  frontend:
+    image: docker-tutorial/front
+    build:
+      context: ""
+      dockerfile: frontend.dockerfile
+    command: yarn serve
+    volumes:
+      - ./client:/app
+    ports:
+      - "8080:8080"
   api:
     container_name: nodejs_docker
     env_file:
-      - ../../.env
+      - ../stream_apis/.env
     build:
-      context: ../..
+      context: ../stream_apis
       dockerfile: Dockerfile.production
       args:
         port: ${PORT}
@@ -18,7 +28,7 @@ services:
     image: mongo:4.0
     container_name: mongo
     env_file:
-      - ../../.env
+      - ../stream_apis/.env
     environment:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}

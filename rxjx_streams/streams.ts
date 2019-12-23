@@ -114,14 +114,14 @@ interface PriceAggregator {
 }
 
 // arbitrary value for priceOffer
-const priceOffer = {
+const priceOffer: PriceOffer = {
     buyPrice: 120,
     sellPrice: 125
 };
 
 // arbitrary value for bestBuy and bestSell
-const bestBuyValue = 122;
-const bestSellValue = 123;
+const bestBuyValue: number = 122;
+const bestSellValue: number = 123;
 
 class PriceStream<T> implements PriceAggregator {
     private readonly _initialPriceFeeds: {
@@ -145,7 +145,7 @@ class PriceStream<T> implements PriceAggregator {
         const myObservable$ = source$.pipe(map((x: PriceFeed) => {
             return {
                 symbol: x.symbol,
-                timestamp: timestamp(),
+                timestamp: new Date,
                 bestBuyPrice: {
                     value: bestBuyValue,
                     spread: bestBuyValue - priceOffer.sellPrice,
@@ -157,7 +157,7 @@ class PriceStream<T> implements PriceAggregator {
                     provider: x.providerName,
                 }
             }
-        })) as ConnectableObservable<PriceSummary> ;
+        })) as ConnectableObservable<PriceSummary>;
 
         setInterval(() => {
             myObservable$.subscribe((x) =>  JSON.stringify(x));
@@ -169,7 +169,7 @@ class PriceStream<T> implements PriceAggregator {
         let status: boolean;
         let feed$: Observable<PriceFeed> = of(priceFeed);
         feed$.subscribe(val => this._store.push(val));
-        this._store.some((x) => status = x.providerName === priceFeed.providerName);
+        this._store.some((x: PriceFeed) => status = x.providerName === priceFeed.providerName);
         return status;
     }
 
@@ -177,9 +177,9 @@ class PriceStream<T> implements PriceAggregator {
         let status: boolean;
         const removeFeed: boolean = this._store
             .some((x) => status = x.providerName.toLowerCase() === providerName.toLowerCase());
-        return removeFeed ? (()=>{
+        return removeFeed ? (() => {
             this._store = this._store.filter(feed$ => feed$.providerName !== providerName);
-            this._store.some((x) => status = x.providerName !== providerName);
+            this._store.some((x: PriceFeed) => status = x.providerName !== providerName);
             return status
         })() : status;
     }

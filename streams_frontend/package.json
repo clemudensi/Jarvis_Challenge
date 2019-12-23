@@ -1,6 +1,7 @@
 {
   "name": "streams_frontend",
   "version": "0.1.0",
+  "proxy": "localhost:80",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,7 +10,11 @@
   },
   "dependencies": {
     "core-js": "^3.4.3",
-    "vue": "^2.6.10"
+    "request": "^2.88.0",
+    "rxjs": "^6.5.3",
+    "vue": "^2.6.10",
+    "vue-resource": "^1.5.1",
+    "vue-rx": "^6.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
@@ -29,7 +34,10 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": 1,
+      "no-debugger": 1
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

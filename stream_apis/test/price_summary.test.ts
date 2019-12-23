@@ -28,7 +28,6 @@ describe('Price Summary', () => {
                 if (error) {
                     return done(error);
                 }
-                console.log(result.body, 'rez')
                 expect(result.body).to.not.be.empty;
                 expect(result.body).to.be.an('object');
                 expect(result.body.priceSummary)
