@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/jarvis.iml" filepath="$PROJECT_DIR$/.idea/jarvis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../typeScript/.idea/typeScript.iml" filepath="$PROJECT_DIR$/../typeScript/.idea/typeScript.iml" />
     </modules>
   </component>
 </project>
