@@ -13,6 +13,8 @@ stream_apis/.env
 /stream_apis/dist/
 /streams_frontend/node_modules
 /streams_frontend_react/node_modules
+/streams_frontend_react/.idea
+/streams_frontend/.idea
 
 # misc
 .DS_Store
